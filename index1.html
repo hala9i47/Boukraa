@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <!-- الأساسيات -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="تطبيق الحلاقة – احجز موعدك، احصل على إشعارات، وكافئ ولاءك!" />
+  <meta name="keywords" content="barber, haircut, appointment, حلاقة, موعد, PWA" />
+  <meta name="author" content="TopBarber Team" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="BarberApp" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png" />
+
+  <!-- Social Sharing -->
+  <meta property="og:title" content="تطبيق الحلاقة – BarberApp" />
+  <meta property="og:description" content="سجّل بسهولة وابدأ حجز مواعيدك!" />
+  <meta property="og:image" content="assets/images/barber-preview.jpg" />
+  <meta property="og:url" content="https://yourdomain.com" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="BarberApp" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="BarberApp – تطبيق الحلاقة الذكي" />
+  <meta name="twitter:description" content="سجل الدخول واحجز موعدك بسهولة!" />
+  <meta name="twitter:image" content="assets/images/barber-preview.jpg" />
+
+  <title>Barber App – Login</title>
+
+  <!-- خطوط -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- التصميم الداخلي -->
+  <style>
+    :root {
+      --primary: #fdd835;
+      --primary-dark: #fbc02d;
+      --bg-dark: #0a0a0a;
+      --bg-card: #111;
+      --text-light: #fff;
+      --text-muted: #ccc;
+      --radius: 25px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      scroll-behavior: smooth;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    /* الحاوية الرئيسية */
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-color: var(--bg-dark);
+    }
+
+    /* صورة الحلاق */
+    .image-section {
+      position: relative;
+      width: 100%;
+      height: 65vh;
+      overflow: hidden;
+    }
+
+    .login-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* التدرج السفلي */
+    .gradient-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 35%;
+      background: linear-gradient(to top, rgba(10, 10, 10, 1), rgba(10, 10, 10, 0));
+      z-index: 1;
+    }
+
+    /* الأزرار فوق التدرج */
+    .overlay-content {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      padding: 0 25px;
+      z-index: 2;
+    }
+
+    .overlay-content .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 14px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .sign-in {
+      background-color: var(--primary);
+      color: #000;
+      border: none;
+    }
+
+    .sign-in:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .sign-up {
+      background-color: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .sign-up:hover {
+      background-color: var(--primary);
+      color: #000;
+    }
+
+    .login-content {
+      background-color: var(--bg-card);
+      padding: 25px;
+      border-top-left-radius: var(--radius);
+      border-top-right-radius: var(--radius);
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .forgot-password {
+      margin-top: 14px;
+    }
+
+    .forgot-password a {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* أيقونات تسجيل الدخول */
+    .social-login {
+      margin-top: 20px;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .social-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+    }
+
+    .social-icon:hover {
+      background-color: var(--primary);
+    }
+
+    .social-icon img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+
+    /* موبايل */
+    @media (max-width: 480px) {
+      .login-content {
+        padding: 20px;
+      }
+
+      .btn {
+        font-size: 0.95rem;
+        padding: 12px;
+      }
+
+      .social-icon {
+        width: 38px;
+        height: 38px;
+      }
+    }
+
+    /* تابلت + ديسكتوب */
+    @media (min-width: 768px) {
+      .login-container {
+        max-width: 460px;
+        margin: auto;
+      }
+    }
+  </style>
+
+  <!-- تسجيل Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/service-worker.js')
+          .then(reg => console.log("✅ Service Worker Registered"))
+          .catch(err => console.warn("❌ SW Error", err));
+      });
+    }
+  </script>
+</head>
+
+
+<body>
+  <div class="login-container">
+    <!-- القسم العلوي: صورة الحلاق مع التدرج -->
+    <div class="image-section">
+      <img src="assets/images/barber.jpg" alt="Barber Image" class="login-image" />
+      <div class="gradient-overlay"></div>
+
+      <!-- الأزرار فوق التدرج -->
+      <div class="overlay-content">
+        <div class="buttons">
+          <button class="btn sign-in">SIGN IN</button>
+          <button class="btn sign-up">SIGN UP</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- القسم السفلي: المحتوى -->
+    <div class="login-content">
+      <!-- رابط نسيان كلمة المرور -->
+      <div class="forgot-password">
+        <a href="#">Forgot Your Password?</a>
+      </div>
+
+      <!-- تسجيل الدخول عبر شبكات التواصل -->
+      <div class="social-login">
+        <div class="social-icons">
+          <a href="#" class="social-icon fb" title="Sign in with Facebook">
+            <img src="assets/icons/facebook.svg" alt="Facebook" />
+          </a>
+          <a href="#" class="social-icon google" title="Sign in with Google">
+            <img src="assets/icons/google.svg" alt="Google" />
+          </a>
+          <a href="#" class="social-icon apple" title="Sign in with Apple">
+            <img src="assets/icons/apple.svg" alt="Apple" />
+          </a>
+        </div>
+      </div>
+
+      <!-- محتوى إضافي (معلومات تسويقية أو تنبيهية مستقبلية) -->
+      <div class="info-box">
+        <p>🕒 احصل على تنبيهات دورية لمواعيد الحلاقة القادمة مباشرة على هاتفك.</p>
+        <p>💬 دردش مباشرة مع الحلاق لتنسيق الموعد المثالي لك.</p>
+        <p>🎁 اكسب نقاط ولاء مع كل حلاقة تؤكدها عبر التطبيق!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ أنماط إضافية داخلية -->
+  <style>
+    .info-box {
+      margin-top: 30px;
+      background-color: #1e1e1e;
+      padding: 15px;
+      border-radius: 15px;
+      color: #ccc;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .info-box p {
+      margin: 0 0 10px;
+    }
+  </style>
+
+  <!-- ✅ سكربت لتفعيل الأزرار -->
+  <script>
+    document.querySelector(".sign-in").addEventListener("click", () => {
+      window.location.href = "login.html";
+    });
+
+    document.querySelector(".sign-up").addEventListener("click", () => {
+      window.location.href = "register.html";
+    });
+
+    // مثال: عرض تنبيه تجريبي عند الضغط على أيقونة Google
+    document.querySelector(".google").addEventListener("click", (e) => {
+      e.preventDefault();
+      alert("تسجيل الدخول باستخدام Google سيتوفر قريبًا 🔐");
+    });
+  </script>
+  <script src="main.js"></script>
+</body>
+</html>
